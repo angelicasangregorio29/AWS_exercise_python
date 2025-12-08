@@ -1,0 +1,20 @@
+Q: Qual è la capitale della Francia?
+1) Parigi
+2) Londra
+3) Roma
+4) Madrid
+CORRECT: 1
+
+Q: Qual è il linguaggio di programmazione più usato nel web?
+1) Python
+2) JavaScript
+3) C++
+4) Java
+CORRECT: 2
+
+Q: Chi ha scritto 'La Divina Commedia'?
+1) Dante Alighieri
+2) Alessandro Manzoni
+3) Giovanni Boccaccio
+4) Italo Calvino
+CORRECT: 1
