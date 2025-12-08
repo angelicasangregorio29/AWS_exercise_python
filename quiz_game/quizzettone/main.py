@@ -1,13 +1,37 @@
-from .data.repository import carica_domande
-from .data.services import valida_scelta, calcola_punteggio
-from .ui.console import (
-    mostra_domanda,
-    raccogli_risposta,
-    mostra_feedback_scelta,
-    mostra_feedback_correttezza,
-    chiedi_navigazione,
-    mostra_risultati_finali,
-)
+import sys
+from pathlib import Path
+
+# Allow running this file both as a package module and as a standalone script.
+# When executed directly (`python quiz_game/quizzettone/main.py`), Python sets
+# `__package__` to None and relative imports fail. We add the package root to
+# `sys.path` and provide an import fallback to make imports robust.
+if __package__ is None and __name__ == "__main__":
+    pkg_root = Path(__file__).resolve().parents[1]  # .../quiz_game
+    sys.path.insert(0, str(pkg_root))
+
+try:
+    from .data.repository import carica_domande
+    from .data.services import valida_scelta, calcola_punteggio
+    from .ui.console import (
+        mostra_domanda,
+        raccogli_risposta,
+        mostra_feedback_scelta,
+        mostra_feedback_correttezza,
+        chiedi_navigazione,
+        mostra_risultati_finali,
+    )
+except Exception:
+    # Fallback for environments where package-relative imports still fail.
+    from quizzettone.data.repository import carica_domande
+    from quizzettone.data.services import valida_scelta, calcola_punteggio
+    from quizzettone.ui.console import (
+        mostra_domanda,
+        raccogli_risposta,
+        mostra_feedback_scelta,
+        mostra_feedback_correttezza,
+        chiedi_navigazione,
+        mostra_risultati_finali,
+    )
 
 def main():
     print(">>> Avvio del quiz...\n")
