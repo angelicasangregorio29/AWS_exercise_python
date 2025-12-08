@@ -1,5 +1,5 @@
 from typing import Dict, List, Optional
-from quizzettone.data.services import (
+from ..data.services import (
     valida_scelta,
     genera_feedback_scelta,
     genera_feedback_correttezza,

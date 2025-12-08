@@ -1,0 +1,27 @@
+[
+  {
+    "question": "Qual è la capitale della Francia?",
+    "options": ["Parigi", "Londra", "Roma", "Madrid"],
+    "correct": 1
+  },
+  {
+    "question": "Qual è il linguaggio di programmazione più usato nel web?",
+    "options": ["Python", "JavaScript", "C++", "Java"],
+    "correct": 2
+  },
+  {
+    "question": "Chi ha scritto 'La Divina Commedia'?",
+    "options": ["Dante Alighieri", "Alessandro Manzoni", "Giovanni Boccaccio", "Italo Calvino"],
+    "correct": 1
+  },
+  {
+    "question": "Qual è il colore della bandiera italiana?",
+    "options": ["Rosso, Bianco, Verde", "Blu, Bianco, Rosso", "Giallo, Nero, Verde", "Bianco, Nero, Rosso"],
+    "correct": 1
+  },
+  {
+    "question": "In che anno è iniziata la Seconda Guerra Mondiale?",
+    "options": ["1914", "1939", "1945", "1929"],
+    "correct": 2
+  }
+]

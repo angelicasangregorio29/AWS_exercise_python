@@ -1,6 +1,6 @@
-from quizzettone.data.repository import carica_domande
-from quizzettone.data.services import valida_scelta, calcola_punteggio
-from quizzettone.ui.console import (
+from .data.repository import carica_domande
+from .data.services import valida_scelta, calcola_punteggio
+from .ui.console import (
     mostra_domanda,
     raccogli_risposta,
     mostra_feedback_scelta,
@@ -13,7 +13,7 @@ def main():
     print(">>> Avvio del quiz...\n")
 
     # Puoi scegliere il file da caricare: "domande.txt" oppure "domande.json"
-    domande = carica_domande("domande.txt")
+    domande = carica_domande("domande.json")
     totale = len(domande)
     risposte = [None] * totale  # lista che memorizza le risposte dell'utente
 
