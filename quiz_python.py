@@ -1,4 +1,4 @@
-# === QUIZ MULTI-DOMANDA CON PROGRESSO ===
+# === QUIZ MULTI-DOMANDA CON NAVIGAZIONE BASE ===
 
 lista_domande = [
     "Qual è la capitale della Francia?",
@@ -39,7 +39,8 @@ def valida_scelta(scelta):
     return scelta in [1, 2, 3, 4]
 
 def mostra_feedback(scelta):
-    """Mostra feedback semplice (qui puoi personalizzare come prima)"""
+    """Mostra feedback semplice"""
+    print("\n--- RISPOSTA ---")
     if scelta == 1:
         print(">>> Ottima scelta!")
     elif scelta == 2:
@@ -54,8 +55,9 @@ def mostra_feedback(scelta):
 # === PROGRAMMA PRINCIPALE ===
 print(">>> Avvio del quiz...\n")
 
-for counter_domanda_corrente in range(lista_domande_length):
-    # Debug per capire il contatore
+counter_domanda_corrente = 0
+
+while counter_domanda_corrente < lista_domande_length:
     print(f"[DEBUG] Counter attuale: {counter_domanda_corrente}")
     
     mostra_domanda(counter_domanda_corrente)
@@ -64,6 +66,19 @@ for counter_domanda_corrente in range(lista_domande_length):
     if scelta is not None and valida_scelta(scelta):
         mostra_feedback(scelta)
     else:
-        print(">>> Input non valido, passa alla prossima domanda.")
+        print(">>> Input non valido.")
+
+    # Navigazione avanti/indietro
+    azione = input("\nVuoi andare alla domanda Precedente (P) o Successiva (S)? ").upper()
+    if azione == "P":
+        if counter_domanda_corrente > 0:
+            counter_domanda_corrente -= 1
+            print(">>> Torniamo alla domanda precedente...")
+        else:
+            print(">>> Sei già alla prima domanda, non puoi tornare indietro!")
+            counter_domanda_corrente += 1
+    else:
+        counter_domanda_corrente += 1
+        print(">>> Passiamo alla domanda successiva...")
 
 print("\n>>> Fine del quiz. Grazie per aver partecipato!")
