@@ -1,5 +1,3 @@
-# quizzettone/main.py
-
 from quizzettone.data.repository import carica_domande
 from quizzettone.data.services import valida_scelta, calcola_punteggio
 from quizzettone.ui.console import (
