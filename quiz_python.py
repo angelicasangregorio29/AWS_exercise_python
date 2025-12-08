@@ -1,63 +1,69 @@
-# === QUIZ PYTHON CON FUNZIONI ===
+# === QUIZ MULTI-DOMANDA CON PROGRESSO ===
 
-def mostra_domanda():
-    """Stampa la domanda e le opzioni"""
-    print("=== QUIZ PYTHON ===")
-    print("Domanda: Qual è il tuo linguaggio di programmazione preferito?\n")
-    print("1. Python")
-    print("2. JavaScript")
-    print("3. Java")
-    print("4. C++\n")
+lista_domande = [
+    "Qual è la capitale della Francia?",
+    "Qual è il linguaggio di programmazione più usato nel web?",
+    "Chi ha scritto 'La Divina Commedia'?",
+    "Qual è il colore della bandiera italiana?",
+    "In che anno è iniziata la Seconda Guerra Mondiale?"
+]
+
+lista_opzioni = [
+    ["1. Parigi", "2. Londra", "3. Roma", "4. Madrid"],
+    ["1. Python", "2. JavaScript", "3. C++", "4. Java"],
+    ["1. Dante Alighieri", "2. Alessandro Manzoni", "3. Giovanni Boccaccio", "4. Italo Calvino"],
+    ["1. Rosso, Bianco, Verde", "2. Blu, Bianco, Rosso", "3. Giallo, Nero, Verde", "4. Bianco, Nero, Rosso"],
+    ["1. 1914", "2. 1939", "3. 1945", "4. 1929"]
+]
+
+lista_domande_length = len(lista_domande)
+
+def mostra_domanda(counter_domanda_corrente):
+    """Mostra la domanda corrente con il numero di progresso"""
+    print(f"\nDomanda {counter_domanda_corrente + 1} di {lista_domande_length}")
+    print("------------------------------")
+    print(lista_domande[counter_domanda_corrente])
+    for opzione in lista_opzioni[counter_domanda_corrente]:
+        print(opzione)
 
 def raccogli_risposta():
-    """Chiede input all'utente e restituisce un numero"""
-    print(">>> Sto raccogliendo la risposta dall'utente...")
+    """Raccoglie la risposta dell'utente"""
     try:
         scelta = int(input("Inserisci la tua scelta (1-4): "))
-        print(f">>> Hai inserito: {scelta}")
         return scelta
     except ValueError:
-        print(">>> Errore: input non numerico!")
         return None
 
 def valida_scelta(scelta):
-    """Verifica se la scelta è valida (1-4)"""
-    print(">>> Sto validando la scelta...")
-    if scelta in [1, 2, 3, 4]:
-        print(">>> Scelta valida!")
-        return True
-    else:
-        print(">>> Scelta NON valida!")
-        return False
+    """Verifica se la scelta è valida"""
+    return scelta in [1, 2, 3, 4]
 
-def genera_feedback(scelta):
-    """Genera un messaggio personalizzato in base alla scelta"""
-    print(">>> Sto generando il feedback...")
+def mostra_feedback(scelta):
+    """Mostra feedback semplice (qui puoi personalizzare come prima)"""
     if scelta == 1:
-        return "Hai scelto: Python\nOttima scelta! Perché lo useremo per i prossimi quattro mesi!!"
+        print(">>> Ottima scelta!")
     elif scelta == 2:
-        return "Hai scelto: JavaScript\nInteressante! Ma mi vuoi male!"
+        print(">>> Interessante!")
     elif scelta == 3:
-        return "Hai scelto: Java\nSolida scelta! Ok, però si potrebbe fare meglio! Tipo Python!"
+        print(">>> Solida scelta!")
     elif scelta == 4:
-        return "Hai scelto: C++\nPotente! C++ è ottimo per le performance, ma lasciamolo ai nerd!"
+        print(">>> Potente!")
     else:
-        return "Errore: devi scegliere un numero tra 1 e 4!"
-
-def mostra_feedback(messaggio):
-    """Stampa il feedback formattato"""
-    print("\n--- RISPOSTA ---")
-    print(messaggio)
+        print(">>> Errore: devi scegliere un numero tra 1 e 4!")
 
 # === PROGRAMMA PRINCIPALE ===
-print(">>> Avvio del programma principale...")
-mostra_domanda()
-scelta = raccogli_risposta()
+print(">>> Avvio del quiz...\n")
 
-if scelta is not None and valida_scelta(scelta):
-    messaggio = genera_feedback(scelta)
-else:
-    messaggio = "Errore: devi scegliere un numero tra 1 e 4!"
+for counter_domanda_corrente in range(lista_domande_length):
+    # Debug per capire il contatore
+    print(f"[DEBUG] Counter attuale: {counter_domanda_corrente}")
+    
+    mostra_domanda(counter_domanda_corrente)
+    scelta = raccogli_risposta()
+    
+    if scelta is not None and valida_scelta(scelta):
+        mostra_feedback(scelta)
+    else:
+        print(">>> Input non valido, passa alla prossima domanda.")
 
-mostra_feedback(messaggio)
-print(">>> Fine del programma.")
+print("\n>>> Fine del quiz. Grazie per aver partecipato!")
