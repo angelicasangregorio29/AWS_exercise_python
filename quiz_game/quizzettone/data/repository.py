@@ -169,3 +169,45 @@ def carica_domande(path: str) -> List[Dict]:
     except Exception as e:
         logger.error(f"Errore nel caricamento domande: {e}")
         raise
+
+
+def carica_domande_from_dir(dir_path: str = "") -> List[Dict]:
+    """Carica tutte le domande da tutti i file .txt nella directory del package.
+
+    Se `dir_path` è vuoto, si assume la directory del package `quizzettone`.
+    Ritorna la lista concatenata di tutte le domande trovate (preserva ordine alfabetico dei file).
+    """
+    try:
+        if not dir_path:
+            dir_path = os.path.dirname(os.path.dirname(__file__))
+
+        if not os.path.exists(dir_path) or not os.path.isdir(dir_path):
+            logger.error(f"Directory non valida: {dir_path}")
+            raise ValueError(f"Directory non valida: {dir_path}")
+
+        txt_files = sorted([f for f in os.listdir(dir_path) if f.endswith('.txt')])
+        if not txt_files:
+            logger.warning(f"Nessun file .txt trovato in {dir_path}")
+            raise FileNotFoundError(f"Nessun file .txt trovato in {dir_path}")
+
+        all_domande: List[Dict] = []
+        for fname in txt_files:
+            full = os.path.join(dir_path, fname)
+            try:
+                dom = carica_domande_txt(fname)
+                all_domande.extend(dom)
+                logger.info(f"Caricate {len(dom)} domande da {full}")
+            except Exception as e:
+                logger.error(f"Errore caricamento {full}: {e}")
+                # Continuiamo con gli altri file, ma logghiamo l'errore
+                continue
+
+        if not all_domande:
+            logger.error(f"Nessuna domanda valida caricata dalla directory {dir_path}")
+            raise ValueError(f"Nessuna domanda valida caricata dalla directory {dir_path}")
+
+        logger.info(f"Totale domande caricate da directory: {len(all_domande)}")
+        return all_domande
+    except Exception as e:
+        logger.error(f"Errore in carica_domande_from_dir: {e}")
+        raise

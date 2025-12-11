@@ -1,6 +1,7 @@
 import sys
 import logging
 from pathlib import Path
+import argparse
 
 # Allow running this file both as a package module and as a standalone script.
 # When executed directly (`python quiz_game/quizzettone/main.py`), Python sets
@@ -45,38 +46,75 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def main():
+def main(format_pref: str = "auto", all_txt: bool = False, dir_path: str | None = None):
     """Main function per il quiz con gestione eccezioni robusta."""
     try:
         logger.info(">>> Avvio del quiz...\n")
         print(">>> Avvio del quiz...\n")
 
-        # Proviamo prima a caricare dal file TXT (se presente nel repo),
-        # altrimenti ricadiamo su JSON come fallback.
+        # Gestione formato: 'txt', 'json', 'auto'
         domande = []
         try:
-            domande = carica_domande("domande.txt")
-            logger.info("Caricate domande da domande.txt")
-        except (FileNotFoundError, ValueError) as e_txt:
-            logger.info(f"domande.txt non utilizzabile: {e_txt}; provo domande.json")
-            try:
-                domande = carica_domande("domande.json")
-                logger.info("Caricate domande da domande.json")
-            except FileNotFoundError as e_json:
-                logger.error(f"Nessun file domande trovato: {e_json}")
-                print(">>> ERRORE: Nessun file domande valido trovato (domande.txt/domande.json).")
-                return
-            except ValueError as e_json:
-                logger.error(f"File domande.json non valido: {e_json}")
-                print(f">>> ERRORE: {e_json}")
-                return
-            except Exception as e_json:
-                logger.error(f"Errore inaspettato nel caricamento domande.json: {e_json}")
-                print(">>> ERRORE: Impossibile caricare le domande. Controlla i file.")
-                return
+            if format_pref == "txt":
+                if all_txt:
+                    # Carica tutte le domande da tutti i .txt nella directory specificata o nel package
+                    from .data.repository import carica_domande_from_dir
+                    domande = carica_domande_from_dir(dir_path or "")
+                else:
+                    # se è stata passata una directory, usiamo il file domande.txt dentro quella directory
+                    if dir_path:
+                        import os as _os
+                        domande = carica_domande(_os.path.join(dir_path, "domande.txt"))
+                    else:
+                        domande = carica_domande("domande.txt")
+                logger.info("Caricate domande in modalità TXT")
+            elif format_pref == "json":
+                if dir_path:
+                    import os as _os
+                    domande = carica_domande(_os.path.join(dir_path, "domande.json"))
+                else:
+                    domande = carica_domande("domande.json")
+                logger.info("Caricate domande in modalità JSON")
+            else:  # auto
+                if all_txt:
+                    from .data.repository import carica_domande_from_dir
+                    try:
+                        domande = carica_domande_from_dir(dir_path or "")
+                        logger.info("Caricate domande da tutti i .txt (auto+all)")
+                    except Exception:
+                        logger.info("Nessun .txt valido; provo domande.json")
+                        if dir_path:
+                            import os as _os
+                            domande = carica_domande(_os.path.join(dir_path, "domande.json"))
+                        else:
+                            domande = carica_domande("domande.json")
+                else:
+                    # preferenza: domande.txt -> domande.json
+                    try:
+                        if dir_path:
+                            import os as _os
+                            domande = carica_domande(_os.path.join(dir_path, "domande.txt"))
+                        else:
+                            domande = carica_domande("domande.txt")
+                        logger.info("Caricate domande da domande.txt")
+                    except Exception:
+                        logger.info("domande.txt non utilizzabile; provo domande.json")
+                        if dir_path:
+                            import os as _os
+                            domande = carica_domande(_os.path.join(dir_path, "domande.json"))
+                        else:
+                            domande = carica_domande("domande.json")
+        except FileNotFoundError as e:
+            logger.error(f"Nessun file domande trovato: {e}")
+            print(">>> ERRORE: Nessun file domande valido trovato.")
+            return
+        except ValueError as e:
+            logger.error(f"File domande non valido: {e}")
+            print(f">>> ERRORE: {e}")
+            return
         except Exception as e:
-            logger.error(f"Errore inaspettato nel caricamento domande.txt: {e}")
-            print(">>> ERRORE: Impossibile caricare le domande da TXT.")
+            logger.error(f"Errore inaspettato nel caricamento domande: {e}")
+            print(">>> ERRORE: Impossibile caricare le domande. Controlla i file.")
             return
         
         if not domande:
@@ -175,4 +213,12 @@ def main():
         sys.exit(1)
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Avvia il quizzettone")
+    parser.add_argument("--format", choices=("txt", "json", "auto"), default="auto",
+                        help="Seleziona formato domande: 'txt', 'json' o 'auto' (default)")
+    parser.add_argument("--all-txt", action="store_true",
+                        help="Se True, carica tutte le domande da tutti i file .txt nella cartella del package")
+    parser.add_argument("--dir", dest="dir", default=None,
+                        help="Directory da cui caricare i file domande (default: package quizzettone)")
+    args = parser.parse_args()
+    main(format_pref=args.format, all_txt=args.all_txt, dir_path=args.dir)
