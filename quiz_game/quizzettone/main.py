@@ -51,20 +51,32 @@ def main():
         logger.info(">>> Avvio del quiz...\n")
         print(">>> Avvio del quiz...\n")
 
-        # Puoi scegliere il file da caricare: "domande.txt" oppure "domande.json"
+        # Proviamo prima a caricare dal file TXT (se presente nel repo),
+        # altrimenti ricadiamo su JSON come fallback.
+        domande = []
         try:
-            domande = carica_domande("domande.json")
-        except FileNotFoundError as e:
-            logger.error(f"File domande non trovato: {e}")
-            print(">>> ERRORE: File domande non trovato. Assicurati che 'domande.json' esista.")
-            return
-        except ValueError as e:
-            logger.error(f"File domande non valido: {e}")
-            print(f">>> ERRORE: {e}")
-            return
+            domande = carica_domande("domande.txt")
+            logger.info("Caricate domande da domande.txt")
+        except (FileNotFoundError, ValueError) as e_txt:
+            logger.info(f"domande.txt non utilizzabile: {e_txt}; provo domande.json")
+            try:
+                domande = carica_domande("domande.json")
+                logger.info("Caricate domande da domande.json")
+            except FileNotFoundError as e_json:
+                logger.error(f"Nessun file domande trovato: {e_json}")
+                print(">>> ERRORE: Nessun file domande valido trovato (domande.txt/domande.json).")
+                return
+            except ValueError as e_json:
+                logger.error(f"File domande.json non valido: {e_json}")
+                print(f">>> ERRORE: {e_json}")
+                return
+            except Exception as e_json:
+                logger.error(f"Errore inaspettato nel caricamento domande.json: {e_json}")
+                print(">>> ERRORE: Impossibile caricare le domande. Controlla i file.")
+                return
         except Exception as e:
-            logger.error(f"Errore inaspettato nel caricamento domande: {e}")
-            print(">>> ERRORE: Impossibile caricare le domande. Controlla il file.")
+            logger.error(f"Errore inaspettato nel caricamento domande.txt: {e}")
+            print(">>> ERRORE: Impossibile caricare le domande da TXT.")
             return
         
         if not domande:
