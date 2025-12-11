@@ -13,3 +13,22 @@
 2025-12-10 21:45:37,627 - quiz_game.quizzettone.ui.console - INFO - Quiz completato: 5/5 (100.0%)
 2025-12-10 21:45:37,627 - __main__ - INFO - Quiz completato con successo: 5/5
 2025-12-10 21:45:37,628 - __main__ - INFO - Quiz terminato normalmente
+2025-12-11 09:27:56,159 - quizzettone.main - INFO - >>> Avvio del quiz...
+
+2025-12-11 09:27:56,161 - quizzettone.data.repository - INFO - Caricate 3 domande da /home/angel/AWS_exercise/quiz_game/quizzettone/domande.txt
+2025-12-11 09:27:56,161 - quizzettone.main - INFO - Caricate domande da domande.txt
+2025-12-11 09:27:56,161 - quizzettone.main - INFO - Caricate 3 domande con successo
+2025-12-11 09:28:02,338 - quizzettone.main - INFO - Risposta registrata per domanda 1: 2
+2025-12-11 09:28:08,009 - quizzettone.main - INFO - Risposta registrata per domanda 1: 1
+2025-12-11 09:28:14,259 - quizzettone.main - INFO - Risposta registrata per domanda 1: 1
+2025-12-11 09:28:22,965 - quizzettone.main - INFO - Risposta registrata per domanda 1: 1
+2025-12-11 09:28:27,037 - quizzettone.main - INFO - Risposta registrata per domanda 1: 1
+2025-12-11 09:28:31,506 - quizzettone.main - INFO - Risposta registrata per domanda 1: 1
+2025-12-11 09:28:35,955 - quizzettone.main - INFO - Risposta registrata per domanda 1: 1
+2025-12-11 09:28:49,228 - quizzettone.main - INFO - Risposta registrata per domanda 1: 1
+2025-12-11 09:29:00,160 - quizzettone.main - INFO - Risposta registrata per domanda 2: 2
+2025-12-11 09:29:06,865 - quizzettone.main - INFO - Risposta registrata per domanda 3: 1
+2025-12-11 09:29:12,162 - quizzettone.data.services - INFO - Punteggio calcolato: 3/3
+2025-12-11 09:29:12,163 - quizzettone.ui.console - INFO - Quiz completato: 3/3 (100.0%)
+2025-12-11 09:29:12,164 - quizzettone.main - INFO - Quiz completato con successo: 3/3
+2025-12-11 09:29:12,164 - quizzettone.main - INFO - Quiz terminato normalmente
