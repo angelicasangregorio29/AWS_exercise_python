@@ -18,20 +18,6 @@ def is_next_button_present(text: str) -> bool:
 
     return bool(re.search(PATTERN, text))
 
-def create_record_object(user_list: list[str]) -> dict[str, str]:
-    if not user_list:
-        return None
-    
-    now_utc = datetime.datetime.now(datetime.timezone.utc)
-    clean_date = now_utc.isoformat(timespec='milliseconds').replace('+00:00', 'Z')
-
-    return {
-        'id': str(uuid.uuid4()),  
-        'createdAt': clean_date,  
-        'users': user_list,
-        'numberOfUsers': len(user_list)
-    }
-
 def main() -> None:
     print("Start del programma")
 
