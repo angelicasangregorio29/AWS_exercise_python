@@ -5,7 +5,7 @@
 from requests import get
 import re
 
-BASE_URL: str = "https://github.com/emanuelegurini?" 
+BASE_URL: str = "https://github.com/angelicasangregorio29" 
 END_URL: str = "tab=followers"
 
 PATTERN = r'<a\s+[^>]*href="https://github\.com/([^/]+)\?page=(\d+)&amp;tab=followers"[^>]*>Next</a>'
@@ -20,7 +20,7 @@ def main() -> None:
   print("Start del programma")
 
   controller: bool = True
-  counter : int = 1
+  counter: int = 1
 
   while controller:
     url = f"{BASE_URL}page={counter}&{END_URL}"

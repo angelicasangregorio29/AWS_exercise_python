@@ -1,0 +1,53 @@
+"""
+
+"""
+
+from requests import get
+import re
+
+
+BASE_URL: str = "https://github.com/angelicasangregorio29" 
+URL_FIRST_PAGE: str = "?tab=followers"
+URL_NEXT_PAGE = "https://github.com/angelicasangregorio29?page=3&tab=followers"
+
+PATTERN = r'<a\s+[^>]*href="https://github\.com/([^/]+)\?page=(\d+)&amp;tab=followers"[^>]*>Next</a>'
+
+"""
+1. leggere file
+2. verificare che sia presente il bottone next
+3. se è presente prendere l'url
+4. lanciare una nuova get e salvare il contenuto
+
+"""
+
+def is_next_button_present(text: str) -> bool:
+  if not text:
+    raise ValueError("La stringa non puo essere vuota!")
+
+  return bool(re.search(PATTERN, text))
+ 
+
+def main() -> None:
+
+  controller: bool = True
+  counter : int = 1
+  print("Start del programma")
+
+  while controller:
+    url = f"{BASE_URL}{URL_FIRST_PAGE}" if counter == 1 else f"{BASE_URL}page={counter}&{URL_NEXT_PAGE}"
+    try:
+      response = get(url)
+
+      with open("tmp/pagina-1.txt", "w") as f:
+        f.write(response.text)
+        controller = is_next_button_present(response.text)
+        print("File salvato")
+
+
+    except Exception as e:
+      print(f"Errore: {e}") 
+
+  print("fine while")
+ 
+if __name__ == "__main__":
+  main()
