@@ -1,6 +1,4 @@
 import google.generativeai as genai
-import os
-import sys
 
 # --- CONFIGURAZIONE ---
 # Incolla qui sotto la tua API KEY tra le virgolette
