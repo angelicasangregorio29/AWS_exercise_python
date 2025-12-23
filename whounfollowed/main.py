@@ -23,7 +23,7 @@ def main() -> None:
   counter: int = 1
 
   while controller:
-    url = f"{BASE_URL}page={counter}&{END_URL}"
+    url = f"{BASE_URL}?page={counter}&{END_URL}"
     try:
       response = get(url)
 
