@@ -42,11 +42,13 @@ def handle_add():
 
         print(f"DEBUG: API returned short_url={short_url}")
         
-        link = storage.add_link(url, short_url, alias, category)
+        # Requests: "non salvare il link" -> Disable storage
+        # link = storage.add_link(url, short_url, alias, category)
+        
         print(f"✅ Success! Short URL: {short_url}")
         print(f"   Original: {url}")
-        if link['alias']:
-            print(f"   Alias: {link['alias']}")
+        if alias:
+            print(f"   Alias: {alias}")
     except Exception as e:
         import traceback
         print("\n❌ CRITICAL ERROR CAUGHT:")
