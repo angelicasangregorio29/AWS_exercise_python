@@ -3,7 +3,10 @@ import os
 import uuid
 from datetime import datetime
 
-DB_FILE = 'db.json'
+import pathlib
+
+# Resolve db.json relative to this script's directory
+DB_FILE = pathlib.Path(__file__).parent / 'db.json'
 
 def load_db():
     if not os.path.exists(DB_FILE):
