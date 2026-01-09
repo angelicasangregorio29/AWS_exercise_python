@@ -23,9 +23,12 @@ def handle_add():
     # Handle empty strings as None
     alias = alias if alias else None
     
-    if alias and len(alias) < 5:
-        print("❌ Error: Custom alias must be at least 5 characters long.")
-        return
+    if alias:
+        if len(alias) > 12:
+            print("❌ Error: Custom alias cannot exceed 12 characters.")
+            return
+        if len(alias) < 5:
+             print("⚠️  Warning: Custom alias usually needs 5+ chars for is.gd.")
 
     category = category if category else None
     

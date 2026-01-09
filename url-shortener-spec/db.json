@@ -26,11 +26,30 @@
       "category": null,
       "description": null,
       "created_at": "2026-01-09T11:20:33.346255"
+    },
+    {
+      "id": "ee73bfb4-9087-404a-b712-80202667e881",
+      "original_url": "https://google.com",
+      "short_url": "https://is.gd/u_5373",
+      "alias": "u_5373",
+      "category": null,
+      "description": null,
+      "created_at": "2026-01-09T11:42:54.185427"
+    },
+    {
+      "id": "378b7f0e-faae-4e1a-8bb6-1f0ee85646a6",
+      "original_url": "https://www.weroad.it/?utm_term=weroad&utm_source=google&utm_medium=cpc&utm_campaign=IT-it_GADS_SEA_BRD&gad_source=1&gad_campaignid=19561875079&gbraid=0AAAAADMjbFUDNDtAHjLnALTy5JfFQvzgQ&gclid=CjwKCAiA64LLBhBhEiwA-Pxgu3sZjiVc7R47ieGyp6rBIbnWGTNRgIj-NWLuLagsvrBSvr_eqn4KaBoCsrQQAvD_BwE",
+      "short_url": "https://is.gd/viaggi",
+      "alias": "viaggi",
+      "category": "road1",
+      "description": null,
+      "created_at": "2026-01-09T11:45:34.889625"
     }
   ],
   "categories": [
     "test_cat",
     "tools",
-    "CategoryTest"
+    "CategoryTest",
+    "road1"
   ]
 }
