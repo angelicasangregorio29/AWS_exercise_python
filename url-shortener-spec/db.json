@@ -44,12 +44,22 @@
       "category": "road1",
       "description": null,
       "created_at": "2026-01-09T11:45:34.889625"
+    },
+    {
+      "id": "2afa6284-115c-41e6-b230-8bbd18792824",
+      "original_url": "https://www.zalando.it/",
+      "short_url": "https://is.gd/scarpe",
+      "alias": "scarpe",
+      "category": "shopping",
+      "description": null,
+      "created_at": "2026-01-09T12:07:18.722123"
     }
   ],
   "categories": [
     "test_cat",
     "tools",
     "CategoryTest",
-    "road1"
+    "road1",
+    "shopping"
   ]
 }
