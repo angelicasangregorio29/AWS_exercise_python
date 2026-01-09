@@ -29,7 +29,13 @@ def shorten_url(url, alias=None):
             if response.status != 200:
                 return None, f"HTTP Error: {response.status}"
             
-            data = json.loads(response.read().decode())
+            try:
+                data = json.loads(response.read().decode())
+            except json.JSONDecodeError as e:
+                 print(f"DEBUG: Failed to decode JSON. Raw response might be invalid.")
+                 return None, f"JSON Decode Error: {e}"
+
+            print(f"DEBUG: Raw API Response: {data}")
             
             if 'errorcode' in data:
                 return None, f"API Error: {data.get('errormessage', 'Unknown error')}"

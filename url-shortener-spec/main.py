@@ -30,17 +30,24 @@ def handle_add():
     category = category if category else None
     
     print(f"✂️  Shortening {url}...")
-    short_url, error = api.shorten_url(url, alias)
-    
-    if error:
-        print(f"❌ Error: {error}")
-        return
+    try:
+        short_url, error = api.shorten_url(url, alias)
+        
+        if error:
+            print(f"❌ API Error: {error}")
+            return
 
-    link = storage.add_link(url, short_url, alias, category)
-    print(f"✅ Success! Short URL: {short_url}")
-    print(f"   Original: {url}")
-    if link['alias']:
-        print(f"   Alias: {link['alias']}")
+        print(f"DEBUG: API returned short_url={short_url}")
+        
+        link = storage.add_link(url, short_url, alias, category)
+        print(f"✅ Success! Short URL: {short_url}")
+        print(f"   Original: {url}")
+        if link['alias']:
+            print(f"   Alias: {link['alias']}")
+    except Exception as e:
+        import traceback
+        print("\n❌ CRITICAL ERROR CAUGHT:")
+        traceback.print_exc()
 
 def handle_list():
     links = storage.get_links()
